@@ -1,1 +1,1 @@
-void exit();
+void exitOverride(int *board);

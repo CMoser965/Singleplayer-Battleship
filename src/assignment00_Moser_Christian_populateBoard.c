@@ -4,39 +4,39 @@
  * Description: Module used to generate battleships
  * **/
 
+#include <time.h>
+#include <stdio.h>
 #include "../include/assignment00_Moser_Christian_populateBoard.h"
+#include "../include/assignment00_Moser_Christian_initializeBoard.h"
+
 
 // define constants to be used in battleship generation
-int CARRIER = 5;
-int BATTLESHIP = 4;
-int CRUISER = 3;
-int SUBMARINE = 3;
-int DESTROYER = 2;
-int ROW_COL_DEF = 10;
+CARRIER = 5;
+BATTLESHIP = 4;
+CRUISER = 3;
+SUBMARINE = 3;
+DESTROYER = 2;
+ROW_COL_DEF = 10;
 
-// define boardState data types
-typedef enum {blank = 0, miss = 1, hit = 2, carrier = 100, battleship = 101, cruiser = 102, submarine = 103, destroyer = 104} boardState;
+// define boardState data types in header
+// typedef boardState;
 
 // function to return board with generated battleship
-int* produce(int battleship);
+void produce(int battleship, int *board, int carrier);
 
-// TODO:
 // ship detection before production
-int *populateBoard(int *board) {
-
+void populateBoard(int *board) {
+    
     // generate all the ships
-    *board = produce(CARRIER, *board, carrier);
-    *board = produce(BATTLESHIP, *board, battleship);
-    *board = produce(CRUISER, *board, cruiser);
-    *board = produce(SUBMARINE, *board, submarine);
-    *board = produce(DESTROYER, *board, destroyer);
-
-    // return populated board
-    return *board;
+    produce(CARRIER, board, carrier);
+    produce(BATTLESHIP, board, battleship);
+    produce(CRUISER, board, cruiser);
+    produce(SUBMARINE, board, submarine);
+    produce(DESTROYER, board, destroyer);
 }
 
 // function to generate battleships
-int* produce(int battleship, int *board, int token) {
+void produce(int battleship, int *board, int token) {
     // generate a random number range 1--4 to specify randomely generated orientation
     int orientation = (srand(time(0)) % 4) + 4;
     // the intercept coefficient is used to randomely generated the second
@@ -65,7 +65,4 @@ int* produce(int battleship, int *board, int token) {
                 board[((i + head) * (i + interceptCoeff))] = token;
         }
     }
-
-    // return populated board
-    return *board;
 }

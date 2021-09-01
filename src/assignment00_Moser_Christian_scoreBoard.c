@@ -5,7 +5,9 @@
  **/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "../include/assignment00_Moser_Christian_playerInfo.h"
+
 
 void scoreBoard() {
 
@@ -21,7 +23,7 @@ void scoreBoard() {
 
     fread(&player, sizeof(struct PlayerInfo), 1, profile);
 
-    printf("Name: " + *player.name);
-    printf("\tCountry: " + *player.country);
-    printf("\tScore: " + player.score);
+    printf("Name: %s", player.name);
+    printf("\tCountry: %s", player.country);
+    printf("\tScore: %s,", player.score);
 }

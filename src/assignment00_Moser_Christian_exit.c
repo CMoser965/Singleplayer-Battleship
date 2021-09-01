@@ -5,9 +5,8 @@
  * **/
 
 // function to exit program passes val to differentiate exit program
-void exit() {
-    // prints goodbye
-    print("Goodbye!");
+void exitOverride(int *board) {
+    free(board);
     // exits
-    _exit();
+    _exit(0);
 }
