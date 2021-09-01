@@ -1,0 +1,1 @@
+void save(int score);
