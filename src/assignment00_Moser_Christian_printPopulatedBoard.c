@@ -16,18 +16,19 @@ void printPopulatedBoard(int *board) {
     // forward declare position indicator
     int pos;
     // print col indicator
+    printf("  ");
     for(int i = 0; i < ROW_COL_DEF; i++) 
-        printf("%d ", i);
+        printf("%d", i);
     printf("\n");
     // print the board
     for(int i = 0; i < ROW_COL_DEF; i++) {
         // print row indicator
-        printf("%c",(i+65));
+        printf("%c ",(i+65));
         for(int j = 0; j < ROW_COL_DEF; j++) {
-            pos = (i + ROW_COL_DEF)*(j + ROW_COL_DEF);
+            pos = (i * ROW_COL_DEF) + j;
             switch(board[pos]) {
                 case blank:
-                    printf(" ");
+                    printf("O");
                     break;
                 case miss:
                     printf("M");
@@ -38,7 +39,7 @@ void printPopulatedBoard(int *board) {
                 default:
                     printf("X");
             } 
-        }
+        } 
         printf("\n");
-    }
-}
+    } 
+} 

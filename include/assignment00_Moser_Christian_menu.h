@@ -1,1 +1,1 @@
-int menu(* board);
+int menu(int *board);

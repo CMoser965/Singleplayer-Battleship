@@ -11,9 +11,7 @@
 int *initializeBoard() {
 
     ROW_COL_DEF = 10;
-
-    int *board = calloc((ROW_COL_DEF * ROW_COL_DEF), sizeof(int));
-
+    int *board = calloc(100, sizeof(int));
     return board;
 
 }

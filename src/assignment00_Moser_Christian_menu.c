@@ -97,7 +97,7 @@ int menu(int *board) {
 					goto MENUSCREEN;
 				} else {
 					// Populate the board
-					populateBoard();
+					populateBoard(board);
 					// Remember the user populated the board
 					boardIsPopulated = true;
 				}
@@ -123,30 +123,20 @@ int menu(int *board) {
 			case 5 :
 
 			// check all conditions and let them know the specific issue they're having
-				if(!playerInfoCreated || !boardIsIntialized || !boardIsPopulated) {
-					buffer = (playerInfoCreated == false) ? "You cannot print the board without first making an account, initilalizing the board, populating the board, and then starting a game. Obviously." : !boardIsIntialized ? "You must first populate the board to print the game board." : "You must first initialize the board.";
-					printf("%s", buffer);
-					goto MENUSCREEN;
-				} else {
+				// if(!playerInfoCreated || !boardIsIntialized || !boardIsPopulated) {
+				// 	buffer = (playerInfoCreated == false) ? "You cannot print the board without first making an account, initilalizing the board, populating the board, and then starting a game. Obviously." : !boardIsIntialized ? "You must first populate the board to print the game board." : "You must first initialize the board.";
+				// 	printf("%s", buffer);
+				// 	goto MENUSCREEN;
+				// } else {
 					// . . .
 					printPopulatedBoard(board);
-				}
+				// }
 				break;
 
 			// User wants to view the scoreboard. Operates exactly the same as case 5, but with different
 			// buffer text (slightly altered) and calls scoreBoard() instead of printPopulatedBoard() 
 			case 6 :
-			
-			// check all conditions
-				if(!playerInfoCreated || !boardIsIntialized || !boardIsPopulated || !gameIsPlaying) {
-					buffer = (playerInfoCreated == false) ? "You cannot view the scoreboard without first making an account, initilalizing the board, populating the board, and then starting a game. Obviously." : boardIsIntialized ? "You must first populate the board to view the scoreboard." : !gameIsPlaying ? "You must start a game first" : "You must first initialize the board.";
-					printf("%s", buffer);
-					goto MENUSCREEN;
-				} else {
-					// do the stuff
 					scoreBoard();
-				}
-				// #JustCaseSwitchThings
 				break;
 
 			case 7 :

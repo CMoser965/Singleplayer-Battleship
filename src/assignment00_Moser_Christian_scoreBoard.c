@@ -10,7 +10,7 @@
 
 
 void scoreBoard() {
-
+    printf("Line 13");
     FILE *profile;
     fopen("playerInfo.dat", "r");
 

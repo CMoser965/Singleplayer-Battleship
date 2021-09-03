@@ -17,15 +17,20 @@
 
 // forward declare print func
 void print(int *board);
-// forward declare ISR to access menu
-void sighandler(int sig);
 
 void play(int *board) {
+    for(int i = 0; i < ROW_COL_DEF; i++) {
+        for(int j = 0; j < ROW_COL_DEF; j++) {
+            printf(" %d ",board[i*ROW_COL_DEF+j]);
+        }
+        printf("\n");
+    }
 
     // define column as alphanumerical counterparts
     char col[] = "ABCDEFGHIJ";
     // define score
     int score = 100;
+    int gameStillRunning = 0;
     // define a tracker to tell if ship x is destroyed;
     int tracker[5] = {0, 0, 0, 0, 0};
     // forward declare guess position, guess, ships destroyed tracker, and win condition
@@ -38,13 +43,13 @@ void play(int *board) {
     while(numOfDestroyedShips != gameIsWon) {
     
         print(board);
-        printf("Press CTRL - Z to access main menu. . .\n");
         printf("Enter guess: ");
         scanf("%s", guess);
         printf("\n");
-        char *column = strchr(col, guess[0]);
+        int rowGuess = guess[0] - 'A';
         
-        pos = (ROW_COL_DEF + (guess[1] - '0')) * (ROW_COL_DEF + (column - col));
+        pos = (guess[1] - '0') + ROW_COL_DEF * rowGuess;
+        printf("board actual id: %d\nactual guess pos: %d\n",board[pos], pos);
 
         switch(board[pos]) {
 
@@ -109,46 +114,38 @@ void play(int *board) {
         }
 
     }
-
     printf("Game over!\n");
     save(score);
-    menu();
+    menu(board);
 }
 
 void print(int *board) {
-    // clear the screen
-    system("clear");
-
-    
+ 
     // forward declare position indicator
     int pos;
     // print col indicator
+    printf("  ");
     for(int i = 0; i < ROW_COL_DEF; i++) 
-        printf(" " + (i+48));
+        printf("%d", i);
     printf("\n");
     // print the board
     for(int i = 0; i < ROW_COL_DEF; i++) {
         // print row indicator
-        printf((i+65) + " ");
+        printf("%c ",(i+65));
         for(int j = 0; j < ROW_COL_DEF; j++) {
-            pos = (i + ROW_COL_DEF)*(j + ROW_COL_DEF);
+            pos = (i * ROW_COL_DEF) + j;
             switch(board[pos]) {
-                case blank:
-                    printf(" ");
                     break;
                 case miss:
                     printf("M");
                     break;
                 case hit:
                     printf("H");
-            }
-        }
+                    break;
+                default:
+                    printf("O");
+            } 
+        } 
         printf("\n");
-    }
-}
-
-// ISR function that passes SIGTSTP signal launched from ^Z keybind to access menu()
-void sighandler(int sig) {
-    signal(SIGTSTP, sighandler);
-    menu();
+    } 
 }
