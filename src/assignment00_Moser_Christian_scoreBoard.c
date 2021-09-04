@@ -10,9 +10,9 @@
 
 
 void scoreBoard() {
-    printf("Line 13");
+
     FILE *profile;
-    fopen("playerInfo.dat", "r");
+    profile = fopen("playerInfo.dat", "r");
 
     if(profile == NULL) {
         fprintf(stderr, "\nError opend filed\n");
@@ -21,9 +21,10 @@ void scoreBoard() {
 
     struct PlayerInfo player;
 
-    fread(&player, sizeof(struct PlayerInfo), 1, profile);
-
+    while(fread(&player, sizeof(struct PlayerInfo), 1, profile)) {
     printf("Name: %s", player.name);
-    printf("\tCountry: %s", player.country);
-    printf("\tScore: %s,", player.score);
+    printf("\t\t\t\t\tCountry: %s", player.country);
+    printf("\t\t\t\t\tDate: %s", player.date);
+    printf("\t\t\t\t\tScore: %d\n", player.score);
+    }
 }

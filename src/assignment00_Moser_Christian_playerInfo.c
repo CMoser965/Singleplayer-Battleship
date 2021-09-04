@@ -13,12 +13,11 @@ void playerInfo() {
     FILE *profile;
 
     // open player file
-    profile = fopen("playerInfo.dat", "w");
+    profile = fopen("playerInfo.dat", "r+");
 
-    // exits program if error is thrown
+    // creates file if first time running
     if(profile == NULL) {
-        fprintf(stderr, "\nError opend filed\n");
-        exit(1);
+        profile = fopen("playerInfo.dat", "w+");
     }
         
     // define variables for player info
@@ -43,9 +42,9 @@ void playerInfo() {
     printf("\n");
 
     // update struct player with player information
-    *player.name = playerName;
-    *player.country = playerCountry;
-    *player.date = gameDate;
+    strcpy(player.name, playerName);
+    strcpy(player.country, playerCountry);
+    strcpy(player.date, gameDate);
     player.score = NULL;
 
     // write out player information

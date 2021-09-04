@@ -91,7 +91,7 @@ int menu(int *board) {
 				if(!playerInfoCreated || !boardIsIntialized) {
 					// Find the specific error they made. If the player forgot to enter information, 
 					// tell them. If they forgot to initialize the board, tell them. 
-					buffer = (playerInfoCreated == false) ? "You cannot populate the board without first making an account and initilalizing the board." : "You must populate the board before first making an account.";
+					buffer = (playerInfoCreated == false) ? "You cannot populate the board without first making an account and initilalizing the board." : "You must initialize the board before populating.";
 					// Print the condition
 					printf("%s", buffer);
 					goto MENUSCREEN;
@@ -123,20 +123,19 @@ int menu(int *board) {
 			case 5 :
 
 			// check all conditions and let them know the specific issue they're having
-				// if(!playerInfoCreated || !boardIsIntialized || !boardIsPopulated) {
-				// 	buffer = (playerInfoCreated == false) ? "You cannot print the board without first making an account, initilalizing the board, populating the board, and then starting a game. Obviously." : !boardIsIntialized ? "You must first populate the board to print the game board." : "You must first initialize the board.";
-				// 	printf("%s", buffer);
-				// 	goto MENUSCREEN;
-				// } else {
-					// . . .
+				if(!playerInfoCreated || !boardIsIntialized || !boardIsPopulated) {
+					buffer = (playerInfoCreated == false) ? "You cannot print the board without first making an account, initilalizing the board, populating the board, and then starting a game. Obviously." : !boardIsIntialized ? "You must first populate the board to print the game board." : "You must first initialize the board.";
+					printf("%s", buffer);
+					goto MENUSCREEN;
+				} else {
 					printPopulatedBoard(board);
-				// }
+				}
 				break;
 
 			// User wants to view the scoreboard. Operates exactly the same as case 5, but with different
 			// buffer text (slightly altered) and calls scoreBoard() instead of printPopulatedBoard() 
 			case 6 :
-					scoreBoard();
+				scoreBoard();
 				break;
 
 			case 7 :

@@ -15,7 +15,7 @@ void save(int score) {
     FILE *profile;
 
     // open 
-    profile = fopen("playerInfo.dat", "w");
+    profile = fopen("playerInfo.dat", "r+");
 
     if(profile == NULL) {
         fprintf(stderr, "\nError opend filed\n");
@@ -23,9 +23,6 @@ void save(int score) {
     }
         
     // define variables for player info
-    char playerName[256];
-    char playerCountry[256];
-    char gameDate[16];
     struct PlayerInfo player;
 
     // load current player info

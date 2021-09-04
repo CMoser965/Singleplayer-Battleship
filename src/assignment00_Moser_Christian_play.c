@@ -19,12 +19,6 @@
 void print(int *board);
 
 void play(int *board) {
-    for(int i = 0; i < ROW_COL_DEF; i++) {
-        for(int j = 0; j < ROW_COL_DEF; j++) {
-            printf(" %d ",board[i*ROW_COL_DEF+j]);
-        }
-        printf("\n");
-    }
 
     // define column as alphanumerical counterparts
     char col[] = "ABCDEFGHIJ";
@@ -41,15 +35,18 @@ void play(int *board) {
     
 
     while(numOfDestroyedShips != gameIsWon) {
-    
+        
         print(board);
         printf("Enter guess: ");
         scanf("%s", guess);
         printf("\n");
         int rowGuess = guess[0] - 'A';
         
+        // cheat code to instantly beat game
+        if(strcmp(guess, "pihselttab") == 0) 
+            numOfDestroyedShips = gameIsWon;
+
         pos = (guess[1] - '0') + ROW_COL_DEF * rowGuess;
-        printf("board actual id: %d\nactual guess pos: %d\n",board[pos], pos);
 
         switch(board[pos]) {
 
@@ -68,7 +65,7 @@ void play(int *board) {
                 printf("Battleship hit!\n");
                 tracker[battleship - 100]++;
                 if(tracker[battleship - 100] == BATTLESHIP) {
-                    printf("You sunk the Cruiser!\n");
+                    printf("You sunk the Battleship!\n");
                     numOfDestroyedShips++;
                 }
                 break;

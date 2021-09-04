@@ -39,36 +39,30 @@ void populateBoard(int *board) {
 // function to generate battleships
 void produce(int battleship, int *board, int token) {
     // generate a random number range 1--4 to specify randomely generated orientation
-    int orientation = (rand() % 1) + 1;
-    // printf(orientation);
+    int orientation = rand() % 2;
     // the intercept coefficient is used to randomely generated the second
     //dimension of placement (i.e., if left/right, generates random y-dimension)
     int interceptCoeff = (rand() % ROW_COL_DEF);
     // first occupied space of battleship
     int head = (rand() % (9));
-    printf("head (starting unit for %d): %d\nintercept coeffeciant: %d\n", battleship, head, interceptCoeff);
-
+    if(ROW_COL_DEF - battleship > head)
+        head += ROW_COL_DEF - battleship;
+    if (head + battleship > ROW_COL_DEF) 
+        head -= ROW_COL_DEF - battleship;
+ 
     int positionGeneration, i;
     // loop used to occupy board
     for(i = 0; i < battleship; i++) {
         switch(orientation){
-            // left orientation
-            case 1:
+            // left/right orientation
+            case 0:
                 positionGeneration = ROW_COL_DEF * (head - i) + interceptCoeff;
                 break;
-            // right orientation
-            case 2:
-                positionGeneration = ROW_COL_DEF * (head + i) + interceptCoeff;
+            // up/down orientation
+            case 1:
+                positionGeneration = ROW_COL_DEF * interceptCoeff + (head + i);
                 break;
-            // up orientation
-            case 3:
-                positionGeneration = ROW_COL_DEF * head + (interceptCoeff - i);
-                break;
-            // down orientation
-            case 4:
-                positionGeneration = ROW_COL_DEF * head + (interceptCoeff + i);
         }
-        printf("Generated location: %d\n", positionGeneration);
         board[positionGeneration] = token;
     }
 
